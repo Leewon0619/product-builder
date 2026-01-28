@@ -1,55 +1,20 @@
-const generateBtn = document.getElementById('generate-btn');
-const lottoNumbersContainer = document.getElementById('lotto-numbers');
-const themeToggle = document.getElementById('theme-toggle');
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburgerMenu = document.getElementById('hamburger-menu');
+  const navLinks = document.querySelector('.nav-links');
 
-// --- Theme Switcher ---
-function applyTheme(theme) {
-  if (theme === 'dark') {
-    document.body.classList.add('dark-mode');
-    themeToggle.checked = true;
-  } else {
-    document.body.classList.remove('dark-mode');
-    themeToggle.checked = false;
-  }
-}
-
-function setTheme(isDarkMode) {
-  const theme = isDarkMode ? 'dark' : 'light';
-  localStorage.setItem('theme', theme);
-  applyTheme(theme);
-}
-
-themeToggle.addEventListener('change', (e) => {
-  setTheme(e.target.checked);
-});
-
-// Apply saved theme on load
-const savedTheme = localStorage.getItem('theme') || 'light';
-applyTheme(savedTheme);
-
-
-// --- Lotto Generator ---
-generateBtn.addEventListener('click', () => {
-  // Clear previous numbers
-  lottoNumbersContainer.innerHTML = '';
-
-  const numbers = new Set();
-  while (numbers.size < 6) {
-    const randomNumber = Math.floor(Math.random() * 45) + 1;
-    numbers.add(randomNumber);
+  // Toggle mobile menu
+  if (hamburgerMenu && navLinks) {
+    hamburgerMenu.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
   }
 
-  const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
-
-  sortedNumbers.forEach((number, index) => {
-    const ball = document.createElement('div');
-    ball.classList.add('lotto-ball');
-    ball.textContent = number;
-    lottoNumbersContainer.appendChild(ball);
-
-    // Staggered animation
-    setTimeout(() => {
-      ball.classList.add('pop');
-    }, index * 100);
-  });
+  // Close mobile menu when a link is clicked
+  if (navLinks) {
+    navLinks.addEventListener('click', (event) => {
+      if (event.target.tagName === 'A' && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+      }
+    });
+  }
 });
