@@ -5,11 +5,12 @@
   --heading-color: #111;
   --border-color: #eee;
   --section-bg-color: #f9f9f9;
+  --nav-height: 70px;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 70px; /* Offset for fixed navbar */
+  scroll-padding-top: var(--nav-height); 
 }
 
 body {
@@ -30,7 +31,9 @@ body {
 .navbar {
   background-color: var(--bg-color);
   border-bottom: 1px solid var(--border-color);
-  padding: 15px 0;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -43,6 +46,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .logo {
@@ -52,21 +56,41 @@ body {
   text-decoration: none;
 }
 
-#hamburger-menu {
+.hamburger-menu {
   display: none;
-  font-size: 2em;
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--text-color);
+  padding: 0;
+  z-index: 1001;
 }
+
+.hamburger-menu .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: var(--text-color);
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger-menu.active .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger-menu.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-menu.active .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
 
 .nav-links {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 20px;
+  gap: 25px;
 }
 
 .nav-links a {
@@ -74,15 +98,19 @@ body {
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s;
+  padding-bottom: 5px;
+  border-bottom: 2px solid transparent;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active {
   color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
 }
 
 /* --- Main Content --- */
 main {
-  padding-top: 70px; /* Space for fixed navbar */
+  padding-top: var(--nav-height);
 }
 
 .hero {
@@ -103,10 +131,10 @@ main {
 }
 
 .content-section {
-  padding: 60px 0;
+  padding: 60px 20px;
 }
 
-.content-section:nth-child(odd) {
+.content-section:nth-child(even) {
   background-color: var(--section-bg-color);
 }
 
@@ -117,13 +145,16 @@ main {
   text-align: center;
 }
 
-.content-section ul {
-  list-style: disc;
+.content-section ul, 
+.content-section ol {
   padding-left: 20px;
 }
 
 .content-section li {
   margin-bottom: 10px;
+}
+.content-section h4 {
+    margin-top: 30px;
 }
 
 /* --- Card Styles --- */
@@ -138,7 +169,7 @@ main {
   background-color: var(--bg-color);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 20px;
+  padding: 25px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.05);
   transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -161,19 +192,42 @@ main {
   color: #aaa;
   text-align: center;
   padding: 20px 0;
-  margin-top: 40px;
+}
+
+/* --- Scroll-to-top Button --- */
+#scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 1000;
+}
+
+#scroll-to-top.show {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* --- Responsive Design --- */
 @media (max-width: 768px) {
-  #hamburger-menu {
+  .hamburger-menu {
     display: block;
   }
 
   .nav-links {
     display: none;
     position: absolute;
-    top: 68px;
+    top: var(--nav-height);
     right: 0;
     background-color: var(--bg-color);
     width: 100%;
@@ -185,6 +239,10 @@ main {
 
   .nav-links.active {
     display: flex;
+  }
+
+  .nav-links li {
+    padding: 10px 0;
   }
 
   .hero h1 {
