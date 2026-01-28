@@ -25,13 +25,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Scroll-to-Top Button ---
   if (scrollToTopBtn) {
-    window.addEventListener('scroll', () => {
+    let ticking = false;
+    const updateScrollButton = () => {
       if (window.scrollY > 300) {
         scrollToTopBtn.classList.add('show');
       } else {
         scrollToTopBtn.classList.remove('show');
       }
-    });
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollButton);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    updateScrollButton();
 
     scrollToTopBtn.addEventListener('click', () => {
       window.scrollTo({

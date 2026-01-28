@@ -132,6 +132,8 @@ main {
 
 .content-section {
   padding: 60px 20px;
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
 }
 
 .content-section:nth-child(even) {
@@ -216,6 +218,19 @@ main {
 #scroll-to-top.show {
   opacity: 1;
   visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .card,
+  .nav-links a,
+  .hamburger-menu .bar,
+  #scroll-to-top {
+    transition: none;
+  }
 }
 
 /* --- Responsive Design --- */
