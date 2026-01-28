@@ -1,3 +1,27 @@
+:root {
+  --bg-color: #f0f0f0;
+  --text-color: #333;
+  --h1-color: #333;
+  --ball-bg-color: #4CAF50;
+  --btn-bg-color: #008CBA;
+  --btn-text-color: white;
+  --toggle-bg-color: #ccc;
+  --toggle-fg-color: white;
+  --toggle-switch-bg-color: #008CBA;
+}
+
+body.dark-mode {
+  --bg-color: #333;
+  --text-color: #f0f0f0;
+  --h1-color: #f0f0f0;
+  --ball-bg-color: #5cb85c;
+  --btn-bg-color: #5bc0de;
+  --btn-text-color: #333;
+  --toggle-bg-color: #555;
+  --toggle-fg-color: #333;
+  --toggle-switch-bg-color: #5bc0de;
+}
+
 body {
   font-family: sans-serif;
   display: flex;
@@ -6,16 +30,20 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 h1 {
-  color: #333;
+  color: var(--h1-color);
 }
 
 #lotto-numbers {
   display: flex;
   gap: 10px;
   margin: 20px 0;
+  perspective: 500px;
 }
 
 .lotto-ball {
@@ -28,7 +56,23 @@ h1 {
   font-size: 1.2em;
   font-weight: bold;
   color: white;
-  background-color: #4CAF50; /* Green */
+  background-color: var(--ball-bg-color);
+  opacity: 0; /* Start hidden for animation */
+}
+
+.lotto-ball.pop {
+  animation: pop-in 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotateY(90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotateY(0deg);
+  }
 }
 
 #generate-btn {
@@ -37,6 +81,49 @@ h1 {
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  background-color: #008CBA; /* Blue */
-  color: white;
+  background-color: var(--btn-bg-color);
+  color: var(--btn-text-color);
+  transition: background-color 0.3s;
+}
+
+/* Theme switcher styles */
+.theme-switcher-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+#theme-toggle {
+  display: none;
+}
+
+.theme-toggle-label {
+  display: block;
+  width: 50px;
+  height: 26px;
+  background-color: var(--toggle-bg-color);
+  border-radius: 13px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.theme-toggle-label::after {
+  content: '';
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--toggle-fg-color);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+#theme-toggle:checked + .theme-toggle-label {
+  background-color: var(--toggle-switch-bg-color);
+}
+
+#theme-toggle:checked + .theme-toggle-label::after {
+  transform: translateX(24px);
 }
