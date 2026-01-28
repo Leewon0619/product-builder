@@ -1,5 +1,6 @@
 :root {
   --primary-color: #007bff;
+  --accent-color: #ff7a59;
   --bg-color: #ffffff;
   --text-color: #333;
   --heading-color: #111;
@@ -130,6 +131,14 @@ main {
   color: #555;
 }
 
+.hero-actions {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
 .content-section {
   padding: 60px 20px;
   content-visibility: auto;
@@ -157,6 +166,39 @@ main {
 }
 .content-section h4 {
     margin-top: 30px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--primary-color), #4ba3ff);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.25);
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.btn.full {
+  width: 100%;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
 }
 
 /* --- Card Styles --- */
@@ -267,6 +309,14 @@ main {
   .content-section h2 {
     font-size: 1.8em;
   }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .panel-actions {
+    flex-direction: column;
+  }
 }
 
 /* --- New Content Specific Styles --- */
@@ -301,4 +351,176 @@ main {
 
 .tool-item strong {
     color: var(--primary-color);
+}
+
+/* --- Engagement Section --- */
+.engagement-section {
+  position: relative;
+  background: radial-gradient(circle at top, rgba(0, 123, 255, 0.08), transparent 60%),
+              radial-gradient(circle at 20% 20%, rgba(255, 122, 89, 0.12), transparent 50%);
+}
+
+.engagement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.panel {
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.panel h3 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.chip {
+  background: rgba(0, 123, 255, 0.12);
+  color: var(--primary-color);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75em;
+  font-weight: 600;
+}
+
+.chip.accent {
+  background: rgba(255, 122, 89, 0.12);
+  color: var(--accent-color);
+}
+
+.daily-prompt {
+  font-size: 1.05em;
+  line-height: 1.5;
+  background: var(--section-bg-color);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px dashed rgba(0,0,0,0.08);
+}
+
+.panel-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.streak-box {
+  background: #0b1f38;
+  color: #fff;
+  padding: 14px 16px;
+  border-radius: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.streak-box strong {
+  font-size: 1.4em;
+}
+
+.progress-wrap {
+  background: rgba(255,255,255,0.2);
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-wrap.tall {
+  height: 12px;
+  background: var(--section-bg-color);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  transition: width 0.3s ease;
+}
+
+.challenge-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.challenge-list label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: var(--section-bg-color);
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.challenge-list input {
+  accent-color: var(--primary-color);
+}
+
+.builder-panel label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.builder-panel input,
+.builder-panel textarea {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 0.95em;
+}
+
+.builder-panel textarea {
+  resize: vertical;
+}
+
+.library-list {
+  display: grid;
+  gap: 12px;
+}
+
+.library-item {
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 12px;
+  background: var(--section-bg-color);
+}
+
+.library-item h4 {
+  margin: 0 0 8px 0;
+  font-size: 0.95em;
+  color: var(--heading-color);
+}
+
+.library-item p {
+  margin: 0 0 10px 0;
+  font-size: 0.9em;
+}
+
+.library-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.library-actions button {
+  font-size: 0.85em;
 }
