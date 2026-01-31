@@ -473,6 +473,14 @@ main {
   accent-color: var(--primary-color);
 }
 
+.challenge-note {
+  display: block;
+  font-size: 0.85em;
+  color: #555;
+  margin-left: 34px;
+  margin-top: 6px;
+}
+
 .builder-panel label {
   display: grid;
   gap: 6px;
