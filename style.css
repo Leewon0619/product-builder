@@ -524,3 +524,45 @@ main {
 .library-actions button {
   font-size: 0.85em;
 }
+
+/* --- Consent Banner --- */
+.consent-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 16px;
+  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1100;
+  display: none;
+}
+
+.consent-banner.show {
+  display: block;
+}
+
+.consent-content {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.consent-content p {
+  margin: 0;
+  font-size: 0.95em;
+}
+
+.consent-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.consent-banner .btn.ghost {
+  color: #f8fafc;
+  border-color: rgba(255, 255, 255, 0.3);
+}

@@ -19,6 +19,46 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyPromptBtn = document.getElementById('copy-prompt');
   const promptLibrary = document.getElementById('prompt-library');
   const clearLibraryBtn = document.getElementById('clear-library');
+  const consentBanner = document.getElementById('consent-banner');
+  const consentAcceptBtn = document.getElementById('consent-accept');
+  const consentDeclineBtn = document.getElementById('consent-decline');
+
+  const adsenseClient = 'ca-pub-7922812095820244';
+  const loadAdSense = () => {
+    if (window.__adsenseLoaded) return;
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`;
+    script.crossOrigin = 'anonymous';
+    document.head.appendChild(script);
+    window.__adsenseLoaded = true;
+  };
+
+  const showConsentBanner = () => {
+    if (consentBanner) {
+      consentBanner.classList.add('show');
+    }
+  };
+
+  const hideConsentBanner = () => {
+    if (consentBanner) {
+      consentBanner.classList.remove('show');
+    }
+  };
+
+  const initConsent = () => {
+    const consentValue = localStorage.getItem('adConsent');
+    if (consentValue === 'granted') {
+      loadAdSense();
+      hideConsentBanner();
+      return;
+    }
+    if (consentValue === 'denied') {
+      hideConsentBanner();
+      return;
+    }
+    showConsentBanner();
+  };
 
   // --- Mobile Hamburger Menu ---
   if (hamburgerMenu && navLinks) {
@@ -333,4 +373,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   renderLibrary();
+
+  if (consentAcceptBtn) {
+    consentAcceptBtn.addEventListener('click', () => {
+      localStorage.setItem('adConsent', 'granted');
+      loadAdSense();
+      hideConsentBanner();
+    });
+  }
+
+  if (consentDeclineBtn) {
+    consentDeclineBtn.addEventListener('click', () => {
+      localStorage.setItem('adConsent', 'denied');
+      hideConsentBanner();
+    });
+  }
+
+  initConsent();
 });
